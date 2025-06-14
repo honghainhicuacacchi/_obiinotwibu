@@ -16,77 +16,26 @@ task.spawn(
         end
     end
 )
-
-local plr = game:GetService("Players").LocalPlayer
-
-local year = os.date("%Y")
-local month = os.date("%m")
-local day = os.date("%d")
-print("Year:", year, "Month:", month, "Day:", day)
-if year == 2025 and month ~= 1 then
-    plr:Kick("Trial Ended")
-elseif year ~= 2025 then
-   plr:Kick()
-else
-   print("x")
-end
-
-
-
-local Players = game:GetService("Players")
-local lp = Players.LocalPlayer
-local count = 0  
-
-local areas = {
-    "Colosseum", "Desert", "Fountain",
-    "Magma", "MobBoss", "Pirate", "Prison",
-    "Sky", "SkyArea1", "SkyArea2",
-    "Town"
+local Tabo = MakeTab({Name = "Banana Cat Hub Premium "})
+local Tab description{"by Obii"}
+     local Tab1o = MakeTab({Name = "Setting Farm"})
+     local Tabo = MakeTab({Name = "Setting Hold and Select Skill"})
+     local Tabo = MakeTab({Name = "Tab Farming"})
+     local Tabo = MakeTab({Name = "Tab Stack Farm"})
+     local Tabo = MakeTab({Name = "Tab Farming Other"})
+     local Tab1o = MakeTab({Name = "Tab Fruit and Raid"})
+     local Tabo = MakeTab({Name = "Tab Sea Event"})
+     local Tabo = MakeTab({Name = "Tab Upgrade Race"})
+     local Tabo = MakeTab({Name = "Tab Get and Upgrade Items"})
+     local Tabo = MakeTab({Name = "Tab Volcano Event"})
+     local Tabo = MakeTab({Name = "Tab PVP"})
+getgenv().Config = {
+    ["Map"] = "Desert Temple",
+    ["Difficult"] = "Easy", --Insane , Nightmare
+    ["Mode"] = "Normal", -- Hardcore, Normal
+    ["Type"] = "Dungeon_Farm", -- Dungeon_Farm, Raid_Farm,
+    ["Class"] = "Warrior", -- Mage
+    ["Raid"] = "Goliath Raid", -- Goliath Raid or Hela Raid
+    ["Tier"] = 1, -- set as 1 to do inf raid require 1shot boss in 15 second 
+    ["TeleportSpeed"] = 0.25, -- default is 0.25
 }
-
-local function resetCharacter()
-    local character = lp.Character or lp.CharacterAdded:Wait()
-    character:BreakJoints() 
-end
-
-local function teleportToChest(area, index)
-    local chestPath = workspace.Map:FindFirstChild(area)
-    if chestPath then
-        local chests = chestPath:FindFirstChild("Chests")
-        if chests then
-            local targetChest = chests:GetChildren()[index]
-            if targetChest and targetChest:IsA("BasePart") then
-                lp.Character.HumanoidRootPart.CFrame = targetChest.CFrame 
-            end
-        end
-    end
-end
-
-local function mainLoop()
-    while true do
-        local startTime = tick()
-        for _, area in ipairs(areas) do
-            for index = 1, 10 do
-                teleportToChest(area, index)
-                count = count + 1
-                wait(0.01) 
-
-                if count >= 1000 then
-                    resetCharacter()
-                    count = 0
-                    wait(10)  
-                    break  
-                end
-            end
-            if count == 0 then
-                break  
-            end
-        end
-    end
-end
-lp.CharacterAdded:Connect(function()
-    wait(1) 
-    count = 0 
-    mainLoop() 
-end)
-mainLoop()
